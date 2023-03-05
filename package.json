@@ -1,8 +1,40 @@
 {
+  "name": "@oliverlynch/astro-notion",
+  "description": "Data fetching tool that connects Astro and Notion",
   "type": "module",
-  "private": true,
-  "description": "The root directory for astro-notion package",
+  "version": "0.1.4",
+  "license": "MIT",
+  "exports": {
+    "./api": "./api/index.js",
+    "./components": "./components/index.js"
+  },
+  "keywords": [
+    "notion",
+    "astro",
+    "astro-component"
+  ],
+  "author": {
+    "name": "Joohoon Cha",
+    "email": "joocha0713@gmail.com",
+    "url": "https://jhcha.app"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "astro": "^2.0.17",
+    "prettier": "^2.6.2",
+    "prettier-plugin-astro": "^0.0.12"
+  },
+  "peerDependencies": {
+    "astro": "^2.0.17"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.3",
+    "astro-imagetools": "^0.8.1"
   }
 }
