@@ -1,5 +1,5 @@
 {
-  "name": "@jcha0713/astro-notion",
+  "name": "@oliverlynch/astro-notion",
   "description": "Data fetching tool that connects Astro and Notion",
   "type": "module",
   "version": "0.1.4",
