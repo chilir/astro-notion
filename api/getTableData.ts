@@ -84,7 +84,7 @@ function cleanTableData(data): pageMetaData[] | [] {
       date: getPostDate(created_time, last_edited_time, properties?.date),
       properties: {
         title: getPlainText(properties?.title),
-        slug: getPlainText(properties?.slug),
+        slug: getPlainText(properties?.slug).slice(0,-33),
       },
     };
   });
