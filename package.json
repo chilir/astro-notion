@@ -1,8 +1,8 @@
 {
-  "name": "@oliverlynch/astro-notion",
+  "name": "@chilir/astro-notion",
   "description": "Data fetching tool that connects Astro and Notion",
   "type": "module",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "exports": {
     "./api": "./api/index.js",
@@ -26,15 +26,13 @@
     "format": "prettier -w ."
   },
   "devDependencies": {
-    "astro": "^2.0.17",
-    "prettier": "^2.6.2",
-    "prettier-plugin-astro": "^0.0.12"
+    "astro": "^2.8.2"
   },
   "peerDependencies": {
-    "astro": "^2.0.17"
+    "astro": "^2.8.2"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.3",
+    "@notionhq/client": "^2.2.6",
     "astro-imagetools": "^0.8.1"
   }
 }
