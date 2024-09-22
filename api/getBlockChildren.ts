@@ -1,4 +1,4 @@
-import { getNotionClient } from './notionClient';
+import { getNotionClient } from "./notionClient";
 
 // get notion client object
 const notion = getNotionClient();

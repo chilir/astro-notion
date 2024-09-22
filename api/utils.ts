@@ -1,22 +1,22 @@
-import * as fs from 'fs';
-import * as https from 'https';
+import * as fs from "node:fs";
+import * as https from "node:https";
 
 const supportedBlockTypes = new Set([
-  'paragraph',
-  'heading_1',
-  'heading_2',
-  'heading_3',
-  'callout',
-  'quote',
-  'bulleted_list_item',
-  'numbered_list_item',
-  'to_do',
-  'toggle',
-  'code',
-  'image',
-  'video',
-  'divider',
-  'bookmark',
+  "paragraph",
+  "heading_1",
+  "heading_2",
+  "heading_3",
+  "callout",
+  "quote",
+  "bulleted_list_item",
+  "numbered_list_item",
+  "to_do",
+  "toggle",
+  "code",
+  "image",
+  "video",
+  "divider",
+  "bookmark",
 ]);
 
 export function isSupportedBlockType(type) {
@@ -25,14 +25,14 @@ export function isSupportedBlockType(type) {
 
 export function getClassAttributes(blockObj) {
   let classes = [];
-  let filtered = Object.keys(blockObj.annotations)
-    .filter((key) => blockObj.annotations[key] && key !== 'color')
+  const filtered = Object.keys(blockObj.annotations)
+    .filter((key) => blockObj.annotations[key] && key !== "color")
     .map((attr) => `notion-${attr}`);
   classes = [...filtered];
   if (blockObj.href) {
-    classes.push('notion-link');
+    classes.push("notion-link");
   }
-  return classes.length > 0 ? `class='${classes.join(' ')}'` : '';
+  return classes.length > 0 ? `class='${classes.join(" ")}'` : "";
 }
 
 export function getStyles(blockObj) {
@@ -42,11 +42,11 @@ export function getStyles(blockObj) {
 
 export function getStyleString(styleObj) {
   if (!styleObj) {
-    return '';
+    return "";
   }
   return Object.keys(styleObj)
     .map((key) => `${key}: ${styleObj[key]}`)
-    .join(' ');
+    .join(" ");
 }
 
 // A helper function that grabs correct HTML element name
@@ -56,57 +56,57 @@ export function getStyleString(styleObj) {
 // Later the correctTagName will be used as a prop for polymorphic components
 export function getCorrectTagName(block, type: string): string {
   const correctTagName = {
-    paragraph: 'p',
-    heading_1: 'h1',
-    heading_2: 'h2',
-    heading_3: 'h3',
-    bulleted_list_item: 'li',
-    numbered_list_item: 'li',
-    quote: 'blockquote',
-    code: 'pre',
-    image: 'figure',
-    video: 'figure',
-    divider: 'hr',
-    to_do: 'li',
-    callout: 'p',
-    toggle: 'p',
-    bookmark: 'p',
+    paragraph: "p",
+    heading_1: "h1",
+    heading_2: "h2",
+    heading_3: "h3",
+    bulleted_list_item: "li",
+    numbered_list_item: "li",
+    quote: "blockquote",
+    code: "pre",
+    image: "figure",
+    video: "figure",
+    divider: "hr",
+    to_do: "li",
+    callout: "p",
+    toggle: "p",
+    bookmark: "p",
   };
   return correctTagName[type];
 }
 
 export function getColor(color) {
-  if (typeof color !== 'string') {
-    return '';
+  if (typeof color !== "string") {
+    return "";
   }
 
   const correctColor = {
     // default Notion colors
-    gray: '#787774',
-    brown: '#9f6b53',
-    orange: '#d9730d',
-    yellow: '#cb912f',
-    green: '#448361',
-    blue: '#337ea9',
-    purple: '#9065b0',
-    pink: '#c14c8a',
-    red: '#d44c47',
-    gray_background: '#f1f1ef',
-    brown_background: '#f4eeee',
-    orange_background: '#fbecdd',
-    yellow_background: '#fbf3db',
-    green_background: '#edf3ec',
-    blue_background: '#e7f3f8',
-    purple_background: 'rgba(244, 240, 247, 0.8)',
-    pink_background: 'rgba(249, 238, 243, 0.8)',
-    red_background: '#fdebec',
+    gray: "#787774",
+    brown: "#9f6b53",
+    orange: "#d9730d",
+    yellow: "#cb912f",
+    green: "#448361",
+    blue: "#337ea9",
+    purple: "#9065b0",
+    pink: "#c14c8a",
+    red: "#d44c47",
+    gray_background: "#f1f1ef",
+    brown_background: "#f4eeee",
+    orange_background: "#fbecdd",
+    yellow_background: "#fbf3db",
+    green_background: "#edf3ec",
+    blue_background: "#e7f3f8",
+    purple_background: "rgba(244, 240, 247, 0.8)",
+    pink_background: "rgba(249, 238, 243, 0.8)",
+    red_background: "#fdebec",
   };
 
-  if (color === 'default') {
-    return '';
+  if (color === "default") {
+    return "";
   }
-  if (color.endsWith('background')) {
-    return { 'background-color': correctColor[color] };
+  if (color.endsWith("background")) {
+    return { "background-color": correctColor[color] };
   }
   return { color: correctColor[color] };
 }
@@ -131,20 +131,20 @@ export async function downloadFile(url, targetDir, targetFile) {
             return downloadFile(
               response.headers.location,
               targetDir,
-              targetFile
+              targetFile,
             );
           }
 
           // save the file to disk
           const fileWriter = fs
             .createWriteStream(targetPath)
-            .on('finish', () => {
+            .on("finish", () => {
               resolve({});
             });
 
           response.pipe(fileWriter);
         })
-        .on('error', (error) => {
+        .on("error", (error) => {
           reject(error);
         });
     });
@@ -155,12 +155,12 @@ export async function downloadFile(url, targetDir, targetFile) {
 export function getEmoji(block) {}
 
 export function getPlainText(textObj) {
-  if (typeof textObj?.type !== 'string') {
+  if (typeof textObj?.type !== "string") {
     return;
   }
 
   const type = textObj.type;
-  const plainText = textObj[type].map((text) => text.plain_text).join('');
+  const plainText = textObj[type].map((text) => text.plain_text).join("");
 
   return plainText;
 }
@@ -169,7 +169,7 @@ export function getPostDate(created, edited, userDateObj) {
   const isValidUserDate = (userDateObj) => {
     if (
       userDateObj === null ||
-      userDateObj?.type !== 'date' ||
+      userDateObj?.type !== "date" ||
       userDateObj[userDateObj?.type] === null
     ) {
       return false;
@@ -185,7 +185,7 @@ export function getPostDate(created, edited, userDateObj) {
     const date = new Date(dateStr);
     const timestamp = date.getTime();
 
-    if (typeof timestamp !== 'number' || Number.isNaN(timestamp)) {
+    if (typeof timestamp !== "number" || Number.isNaN(timestamp)) {
       return false;
     }
 
@@ -195,7 +195,7 @@ export function getPostDate(created, edited, userDateObj) {
   const getUserDate = (userDateObj) => {
     if (
       userDateObj === null ||
-      userDateObj?.type !== 'date' ||
+      userDateObj?.type !== "date" ||
       userDateObj[userDateObj?.type] === null
     ) {
       return false;

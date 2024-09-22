@@ -1,15 +1,30 @@
 ---
-import Code from './Code.astro';
-import Text from './Text.astro';
-import NonText from './NonText.astro'
-import BlockWrapper from './BlockWrapper.astro'
-import { getColor, getCorrectTagName } from '../api/utils.ts'
+import { getColor, getCorrectTagName } from "../api/utils.ts";
+import BlockWrapper from "./BlockWrapper.astro";
+import Code from "./Code.astro";
+import NonText from "./NonText.astro";
+import Text from "./Text.astro";
 
-const textTypes = new Set(['h1', 'h2', 'h3', 'p', 'li', 'blockquote', 'pre', 'div', 'summary']);
-const needWrapper = new Set(['bookmark', 'callout', 'bulleted_list_item', 'numbered_list_item', 'toggle'])
+const textTypes = new Set([
+  "h1",
+  "h2",
+  "h3",
+  "p",
+  "li",
+  "blockquote",
+  "pre",
+  "div",
+  "summary",
+]);
+const needWrapper = new Set([
+  "bookmark",
+  "callout",
+  "bulleted_list_item",
+  "numbered_list_item",
+  "toggle",
+]);
 
-const { blocks } = Astro.props
-
+const { blocks } = Astro.props;
 ---
 
 {

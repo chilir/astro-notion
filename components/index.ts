@@ -1,1 +1,1 @@
-export { default as Notion } from './Notion.astro';
+export { default as Notion } from "./Notion.astro";

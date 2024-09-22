@@ -1,14 +1,13 @@
 ---
-import Text from './Text.astro';
-import {Code} from 'astro/components'
+import { Code } from "astro/components";
+import Text from "./Text.astro";
 
-const {block} = Astro.props
-let blockObjs = block[block.type]['rich_text']
-
+const { block } = Astro.props;
+const blockObjs = block[block.type].rich_text;
 ---
 
 <Fragment>
-  {block[block.type].language !== 'plain text' && 
+  {block[block.type].language !== 'plain text' &&
     blockObjs.map(blockObj => {
       return (
         <Code code={blockObj.plain_text} lang={block[block.type].language} theme='dark-plus' wrap />

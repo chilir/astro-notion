@@ -1,9 +1,6 @@
-import { getNotionClient, getDatabaseId } from './notionClient';
-import { getPlainText, getPostDate } from './utils';
-import {
-  GetDatabaseResponse,
-  QueryDatabaseResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+import type { GetDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
+import { getDatabaseId, getNotionClient } from "./notionClient";
+import { getPlainText, getPostDate } from "./utils";
 
 // Get metadata of the database eg. title, date
 // returns the database object as response
@@ -29,7 +26,7 @@ type tableProps = {
 // Returns contents in the database
 // by default, it does not include the draft posts
 export async function getTableData(
-  props: tableProps = { includeDraft: false }
+  props: tableProps = { includeDraft: false },
 ) {
   try {
     const { includeDraft } = props;
@@ -41,7 +38,7 @@ export async function getTableData(
       database_id: databaseId,
       ...(!includeDraft && {
         filter: {
-          property: 'draft',
+          property: "draft",
           checkbox: {
             does_not_equal: true,
           },

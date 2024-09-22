@@ -1,10 +1,10 @@
-import { getBlockChildren } from './getBlockChildren';
-import { isSupportedBlockType } from './utils';
+import { getBlockChildren } from "./getBlockChildren";
+import { isSupportedBlockType } from "./utils";
 
 const listTypes = new Set([
-  'bulleted_list_item',
-  'numbered_list_item',
-  'to_do',
+  "bulleted_list_item",
+  "numbered_list_item",
+  "to_do",
 ]);
 
 export async function getBlockTree(id: string) {
@@ -23,9 +23,9 @@ async function addChildrenBlocks(id: string) {
 
       if (!isSupportedBlockType(type)) {
         console.warn(
-          `${type} blocks are not supported in this version of astro-notion and will not be rendered.`
+          `${type} blocks are not supported in this version of astro-notion and will not be rendered.`,
         );
-        return '';
+        return "";
       }
 
       // This part is for checking if each block is either the first or last item of the list element(<ul> or <ol>)
@@ -34,22 +34,22 @@ async function addChildrenBlocks(id: string) {
       if (listTypes.has(type)) {
         // if current block is the first item of the list, add is_first property
         if (isFirst(type, i, blocks)) {
-          block[type]['is_first'] = true;
+          block[type]["is_first"] = true;
         }
 
         // if current block is the last item of the list, add is_last property
         if (isLast(type, i, blocks)) {
-          block[type]['is_last'] = true;
+          block[type]["is_last"] = true;
         }
       }
 
       // if the current block has children, recursively call the function again to add children array to the block.
       if (block.has_children && !block[type].children) {
-        block[type]['children'] = await addChildrenBlocks(id);
+        block[type]["children"] = await addChildrenBlocks(id);
       }
 
       return block;
-    })
+    }),
   );
 
   return blocks;

@@ -1,50 +1,49 @@
 ---
-import List from './List.astro';
-import InlineCode from './InlineCode.astro';
-import '../styles/global.css'
-import { getStyles, getStyleString, getClassAttributes } from '../api/utils.ts'
+import InlineCode from "./InlineCode.astro";
+import List from "./List.astro";
+import "../styles/global.css";
+import { getClassAttributes, getStyleString, getStyles } from "../api/utils.ts";
 const { block, color } = Astro.props;
-let { as: Text = 'p' } = Astro.props;
+let { as: Text = "p" } = Astro.props;
 
 let objType: string;
-const style = getStyleString(color)
+const style = getStyleString(color);
 
-Text === 'figcaption' ? objType = 'caption' : objType = 'rich_text'
-const blockObjs = block[block.type][objType]
+Text === "figcaption" ? (objType = "caption") : (objType = "rich_text");
+const blockObjs = block[block.type][objType];
 
 const getText = (blockObj) => {
-  let text = blockObj.plain_text
-  const style = getStyles(blockObj)
+  let text = blockObj.plain_text;
+  const style = getStyles(blockObj);
 
-  const classAttributes = getClassAttributes(blockObj)
+  const classAttributes = getClassAttributes(blockObj);
 
   if (blockObj.href) {
-    return `<a ${style && `style='${style}'`} href=${blockObj.href} ${getClassAttributes(blockObj)}>${text}</a>`
+    return `<a ${style && `style='${style}'`} href=${blockObj.href} ${getClassAttributes(blockObj)}>${text}</a>`;
   }
 
   if (classAttributes || style) {
     text = `<span ${style && `style='${style}'`} ${classAttributes}>${blockObj.plain_text}</span>`;
   }
 
-  if (block.type === 'to_do') {
+  if (block.type === "to_do") {
     text = `
-      <input type="checkbox" id="todo" name="todo" ${block[block.type].checked ? 'checked' : ''} />
+      <input type="checkbox" id="todo" name="todo" ${block[block.type].checked ? "checked" : ""} />
       <label ${style && `style='${style}'`} ${classAttributes} for="todo">${blockObj.plain_text}</label>
-    `
+    `;
   }
 
-  return text
-}
+  return text;
+};
 
 // if rich_text is empty, render <br>
 if (blockObjs.length === 0) {
-  Text = 'br'
+  Text = "br";
 }
 
 const styleProp = {
-  ...(style !== '' && {style})
+  ...(style !== "" && { style }),
 };
-
 ---
 
 <List {block} is_first={true} />
