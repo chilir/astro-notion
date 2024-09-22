@@ -1,45 +1,43 @@
 {
-  "name": "@chilir/astro-notion",
-  "description": "Data fetching tool that connects Astro and Notion",
-  "type": "module",
-  "version": "0.1.7",
-  "license": "MIT",
-  "exports": {
-    "./api": "./api/index.js",
-    "./components": "./components/index.js"
-  },
-  "keywords": [
-    "notion",
-    "astro",
-    "astro-component"
-  ],
-  "author": {
-    "name": "Joohoon Cha",
-    "email": "joocha0713@gmail.com",
-    "url": "https://jhcha.app"
-  },
-  "contributors": [
-    {
-      "name": "oliverlynch"
+    "name": "@chilir/astro-notion",
+    "description": "Data fetching tool that connects Astro and Notion",
+    "type": "module",
+    "version": "0.1.7",
+    "license": "MIT",
+    "exports": {
+        "./api": "./api/index.js",
+        "./components": "./components/index.js"
     },
-    {
-      "name": "Minghao Li",
-      "email": "minghao_li@outlook.com"
-    }
-  ],
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "format": "prettier -w ."
-  },
-  "devDependencies": {
-    "astro": "^3.2.0",
-    "bun-types": "^1.0.3"
-  },
-  "dependencies": {
-    "@notionhq/client": "^2.2.13",
-    "astro-imagetools": "^0.9.0"
-  }
+    "keywords": ["notion", "astro", "astro-component"],
+    "author": {
+        "name": "Joohoon Cha",
+        "email": "joocha0713@gmail.com",
+        "url": "https://jhcha.app"
+    },
+    "contributors": [
+        {
+            "name": "oliverlynch"
+        },
+        {
+            "name": "Minghao Li",
+            "email": "minghao_li@outlook.com"
+        }
+    ],
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "format": "prettier -w ."
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.9.2",
+        "astro": "^3.6.5",
+        "bun-types": "^1.1.29"
+    },
+    "dependencies": {
+        "@notionhq/client": "^2.2.15",
+        "astro-imagetools": "^0.9.0"
+    },
+    "trustedDependencies": ["@biomejs/biome"]
 }
