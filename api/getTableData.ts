@@ -1,15 +1,14 @@
-import type { GetDatabaseResponse } from "@notionhq/client/build/src/api-endpoints";
-import { getDatabaseId, getNotionClient } from "./notionClient";
+import { getDataSourceId, getNotionClient } from "./notionClient";
 import { getPlainText, getPostDate } from "./utils";
 
 // Get metadata of the database eg. title, date
 // returns the database object as response
-export async function getTableHeader(): Promise<GetDatabaseResponse> {
+export async function getTableHeader() {
   try {
-    const databaseId = getDatabaseId();
     const notion = getNotionClient();
-    const response = await notion.databases.retrieve({
-      database_id: databaseId,
+    const dataSourceId = await getDataSourceId(notion);
+    const response = await notion.dataSources.retrieve({
+      data_source_id: dataSourceId,
     });
 
     return response;
@@ -30,12 +29,12 @@ export async function getTableData(
 ) {
   try {
     const { includeDraft } = props;
-    const databaseId = getDatabaseId();
     const notion = getNotionClient();
+    const dataSourceId = await getDataSourceId(notion);
 
     // this filters out the draft posts by default
     const queryObj = {
-      database_id: databaseId,
+      data_source_id: dataSourceId,
       ...(!includeDraft && {
         filter: {
           property: "draft",
@@ -46,7 +45,7 @@ export async function getTableData(
       }),
     };
 
-    const response = await notion.databases.query(queryObj);
+    const response = await notion.dataSources.query(queryObj);
     const cleanedData = cleanTableData(response.results);
     return cleanedData;
   } catch (error) {

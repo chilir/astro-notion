@@ -33,7 +33,8 @@ For more detailed work-through, see [_this tutorial_](https://developers.notion.
 ### Astro
 
 1. Copy the **Internal Integration Token** and create a variable in `.env` and name it `NOTION_API_KEY`.
-2. Copy the database id and create another variable in `.env`. Name it `NOTION_DATABASE_ID`.
+2. Create a [Data Source](https://developers.notion.com/docs/working-with-data-sources) for your database (API v5) and set its 32‑character id as `NOTION_DATA_SOURCE_ID` in your `.env`.  
+   If you only have the legacy database id, you may set `NOTION_DATABASE_ID`; astro-notion will try to derive the linked data source, but `NOTION_DATA_SOURCE_ID` is recommended.
 3. Astro-notion uses `astro-imagetools` package to display images. Here is an example config code you can copy and use it.
 
 ```javascript
